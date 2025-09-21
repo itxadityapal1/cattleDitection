@@ -1,0 +1,219 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>AI-Powered Indian Cattle Breed Detection</title>
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+    <link rel="stylesheet" href="./assets/style/index.css">
+</head>
+
+<body>
+    <div class="container">
+        <header>
+            <h1><i class="fas fa-cow"></i> Indian Cattle Breed Detection</h1>
+            <p class="subtitle">AI-powered identification of cattle and buffalo breeds with detailed information</p>
+            <div class="api-status">
+                <div class="status-indicator status-connected"></div>
+                <span>Connected to Gemini AI</span>
+            </div>
+        </header>
+
+        <div class="nav-tabs">
+            <div class="nav-tab active" data-tab="detection"><i class="fas fa-camera"></i> Detection</div>
+            <div class="nav-tab" data-tab="history"><i class="fas fa-history"></i> History</div>
+            <div class="nav-tab" data-tab="stats"><i class="fas fa-chart-bar"></i> Statistics</div>
+        </div>
+
+        <!-- <div class="featured-breeds">
+            <div class="featured-breed" data-breed="sahiwal">
+                <img src="./assets/sahiwal.jpg" alt="Sahiwal">
+                <p>Sahiwal</p>
+            </div>
+            <div class="featured-breed" data-breed="gir">
+                <img src="./assets/gir.jpg" alt="Gir">
+                <p>Gir</p>
+            </div>
+            <div class="featured-breed" data-breed="murrah">
+                <img src="./assets/murrah.jpg" alt="Murrah">
+                <p>Murrah</p>
+            </div>
+            <div class="featured-breed" data-breed="tharparkar">
+                <img src="./assets/tharparkar.jpg" alt="Tharparkar">
+                <p>Tharparkar</p>
+            </div>
+        </div> -->
+
+        <div class="detection-content">
+            <div class="main-content">
+                <div class="upload-section">
+                    <h2 class="section-title"><i class="fas fa-upload"></i> Upload Cattle Image</h2>
+
+                    <div class="upload-options">
+                        <button class="upload-option-btn" id="cameraBtn">
+                            <i class="fas fa-camera"></i> Use Camera
+                        </button>
+                        <button class="upload-option-btn" id="galleryBtn">
+                            <i class="fas fa-image"></i> From Gallery
+                        </button>
+                    </div>
+
+                    <div class="upload-area" id="uploadArea">
+                        <div class="upload-icon"><i class="fas fa-cloud-upload-alt"></i></div>
+                        <p>Click or drag an image here to upload</p>
+                        <p class="small">Supported formats: JPG, PNG, JPEG</p>
+                        <input type="file" id="fileInput" class="file-input" accept="image/*">
+                    </div>
+
+                    <div class="preview-container" id="previewContainer">
+                        <img id="imagePreview" src="" alt="Preview">
+                    </div>
+
+                    <button class="btn" id="detectBtn"><i class="fas fa-search"></i> Detect Breed</button>
+
+                    <div class="loading" id="loadingIndicator">
+                        <div class="loading-spinner"></div>
+                        <p>Analyzing image with Gemini AI...</p>
+                    </div>
+
+                    <!-- <h3 class="section-title"><i class="fas fa-images"></i> Sample Images</h3>
+                    <div class="sample-images">
+                        <img src="./assets/sahiwal.jpg" alt="Sahiwal sample" class="sample-img">
+                        <img src="./assets/gir.jpg" alt="Gir sample" class="sample-img">
+                        <img src="./assets/murrah.jpg" alt="Murrah sample" class="sample-img">
+                        <img src="./assets/tharparkar.jpg" alt="Tharparkar sample" class="sample-img">
+                    </div> -->
+                </div>
+
+                <div class="result-section">
+                    <h2 class="section-title"><i class="fas fa-results"></i> Detection Results</h2>
+                    <div id="placeholderResult">
+                        <p>Upload an image and click "Detect Breed" to see results here.</p>
+                        <!-- <p>You can also click on any breed image to see sample information.</p> -->
+                    </div>
+
+                    <div class="result-content" id="resultContent">
+                        <div class="breed-card">
+                            <div class="breed-actions">
+                                <button class="btn btn-sm" id="favoriteBtn" title="Add to favorites"><i
+                                        class="far fa-star"></i></button>
+                                <button class="btn btn-sm btn-secondary" id="exportBtn" title="Export data"><i
+                                        class="fas fa-download"></i></button>
+                            </div>
+                            <h3 class="breed-name"><i class="fas fa-cow"></i> <span id="breedName">Breed Name</span>
+                            </h3>
+                            <span class="confidence" id="confidenceLevel">Confidence level</span>
+
+                            <div class="breed-info">
+                                <div class="info-item">
+                                    <span class="info-label">Origin:</span>
+                                    <span id="origin">Origin information will appear here</span>
+                                </div>
+                                <div class="info-item">
+                                    <span class="info-label">Local Name:</span>
+                                    <span id="localName">Local name will appear here</span>
+                                </div>
+                                <div class="info-item">
+                                    <span class="info-label">Milk Yield:</span>
+                                    <span id="milkYield">Milk yield information will appear here</span>
+                                </div>
+                                <div class="info-item">
+                                    <span class="info-label">Lactation Period:</span>
+                                    <span id="lactationPeriod">Lactation period will appear here</span>
+                                </div>
+                                <div class="info-item">
+                                    <span class="info-label">Common Diseases:</span>
+                                    <span id="diseases">Common diseases will appear here</span>
+                                </div>
+                                <div class="info-item">
+                                    <span class="info-label">Nutrition Demand:</span>
+                                    <span id="nutrition">Nutrition information will appear here</span>
+                                </div>
+                            </div>
+                        </div>
+
+                        <h3 class="section-title"><i class="fas fa-list"></i> Breed Characteristics</h3>
+                        <div class="breed-characteristics">
+                            <p id="characteristics">Breed characteristics will appear here</p>
+                        </div>
+
+                        <h3 class="section-title"><i class="fas fa-heartbeat"></i> Disease Management</h3>
+                        <div class="disease-management">
+                            <p id="diseaseManagement">Disease management information will appear here</p>
+                        </div>
+
+                        <h3 class="section-title"><i class="fas fa-robot"></i> AI Analysis</h3>
+                        <div class="ai-response">
+                            <div id="aiAnalysis">Gemini AI analysis will appear here after processing the image.</div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+
+        <!-- Camera Modal -->
+        <div class="camera-modal" id="cameraModal">
+            <div class="camera-container">
+                <h2 class="section-title"><i class="fas fa-camera"></i> Take a Photo</h2>
+                <div class="camera-preview">
+                    <video id="videoElement" autoplay playsinline></video>
+                </div>
+                <div class="camera-controls">
+                    <button class="camera-btn camera-close" id="closeCamera">
+                        <i class="fas fa-times"></i> Cancel
+                    </button>
+                    <button class="camera-btn camera-capture" id="captureBtn">
+                        <i class="fas fa-camera"></i>
+                    </button>
+                </div>
+            </div>
+        </div>
+
+        <div class="history-section" id="historySection">
+            <h2 class="section-title">
+                <span><i class="fas fa-history"></i> Detection History</span>
+                <button class="clear-history" id="clearHistoryBtn"><i class="fas fa-trash"></i> Clear History</button>
+            </h2>
+            <div class="history-items" id="historyItems">
+                <!-- History items will be populated by JavaScript -->
+            </div>
+        </div>
+
+        <div class="stats-section" id="statsSection">
+            <h2 class="section-title"><i class="fas fa-chart-bar"></i> Usage Statistics</h2>
+            <div class="stats-grid">
+                <div class="stat-card">
+                    <i class="fas fa-camera fa-2x"></i>
+                    <div class="stat-value" id="totalDetections">0</div>
+                    <div class="stat-label">Total Detections</div>
+                </div>
+                <div class="stat-card">
+                    <i class="fas fa-star fa-2x"></i>
+                    <div class="stat-value" id="favoriteCount">0</div>
+                    <div class="stat-label">Favorites</div>
+                </div>
+                <div class="stat-card">
+                    <i class="fas fa-cow fa-2x"></i>
+                    <div class="stat-value" id="uniqueBreeds">0</div>
+                    <div class="stat-label">Unique Breeds</div>
+                </div>
+                <div class="stat-card">
+                    <i class="fas fa-calendar fa-2x"></i>
+                    <div class="stat-value" id="lastDetection">-</div>
+                    <div class="stat-label">Last Detection</div>
+                </div>
+            </div>
+        </div>
+
+        <footer>
+            <p>This application uses Google's Gemini AI technology to identify Indian cattle and buffalo breeds based on
+                image analysis.</p>
+            <p>© 2023 Indian Cattle Breed Detection | <i class="fas fa-heart" style="color: #e91e63;"></i> Made with
+                care for farmers</p>
+        </footer>
+    </div>
+    <script type="module" src="./assets/script/index.js"></script>
+</body>
+
+</html>
