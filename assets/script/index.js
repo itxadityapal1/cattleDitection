@@ -1449,7 +1449,7 @@ function convertAndAppendHtml(rawText, elementId) {
 }
 
 const flipBtn = document.getElementById("flipCamera");
-let currentFacingMode = "user"; // default: front camera
+let currentFacingMode = "environment"; 
 let currentStream = null;
 
 async function startCamera(facingMode = "user") {
