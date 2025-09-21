@@ -23,6 +23,7 @@ document.addEventListener("DOMContentLoaded", function () {
   const captureBtn = document.getElementById("captureBtn");
   const closeCamera = document.getElementById("closeCamera");
   // const apiKey = "AIzaSyDrn9EfZyRztCrCaxOoqWyRDio32eDJX7o";
+  // const apiKey = "AIzaSyCb7eB55B_kZYyuryXamAHvNTvd6TDmoUM";
   const apiKey = "AIzaSyAcGkbkewyh29LOPDlGhNN8E02HQZ-ISPo";
 
   // Initialize data storage
