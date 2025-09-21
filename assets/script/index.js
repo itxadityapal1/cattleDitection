@@ -1447,3 +1447,31 @@ function convertAndAppendHtml(rawText, elementId) {
 
   return finalHtml;
 }
+
+const flipBtn = document.getElementById("flipCamera");
+let currentFacingMode = "user"; // default: front camera
+let currentStream = null;
+
+async function startCamera(facingMode = "user") {
+  if (currentStream) {
+    currentStream.getTracks().forEach((track) => track.stop());
+  }
+
+  try {
+    currentStream = await navigator.mediaDevices.getUserMedia({
+      video: { facingMode: facingMode },
+    });
+    videoElement.srcObject = currentStream;
+  } catch (error) {
+    console.error("Error accessing camera:", error);
+  }
+}
+
+// Start with front camera
+startCamera(currentFacingMode);
+
+// Flip button event
+flipBtn.addEventListener("click", () => {
+  currentFacingMode = currentFacingMode === "user" ? "environment" : "user";
+  startCamera(currentFacingMode);
+});
